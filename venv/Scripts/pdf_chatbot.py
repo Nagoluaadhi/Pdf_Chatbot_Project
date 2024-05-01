@@ -3,7 +3,7 @@ import pdfplumber
 import requests
 
 # Set up OpenAI API
-openai_api_key = "Api-Key"
+openai_api_key = "your_Api_Key"
 openai_endpoint = "https://api.openai.com/v1/completions"
 
 # Function to extract text from PDF
