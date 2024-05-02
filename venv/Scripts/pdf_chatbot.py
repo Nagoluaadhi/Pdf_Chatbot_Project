@@ -1,9 +1,9 @@
 import streamlit as st
 import pdfplumber
 import requests
-
+import main
 # Set up OpenAI API
-openai_api_key = "your_Api_Key"
+
 openai_endpoint = "https://api.openai.com/v1/completions"
 
 # Function to extract text from PDF
@@ -18,7 +18,7 @@ def extract_text_from_pdf(uploaded_file):
 def chat_with_openai(prompt):
     headers = {
         "Content-Type": "application/json",
-        "Authorization": f"Bearer {openai_api_key}"
+        "Authorization": f"Bearer {main.openai_api_key}"
     }
     data = {
         "prompt": prompt,
