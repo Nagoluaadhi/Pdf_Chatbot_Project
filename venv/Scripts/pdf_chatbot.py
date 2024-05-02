@@ -1,9 +1,15 @@
 import streamlit as st
 import pdfplumber
 import requests
-import main
-# Set up OpenAI API
 
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Retrieve the API key from the environment variable
+openai_api_key  = os.environ.get('openai_api_key')
 openai_endpoint = "https://api.openai.com/v1/completions"
 
 # Function to extract text from PDF
@@ -18,7 +24,7 @@ def extract_text_from_pdf(uploaded_file):
 def chat_with_openai(prompt):
     headers = {
         "Content-Type": "application/json",
-        "Authorization": f"Bearer {main.openai_api_key}"
+        "Authorization": f"Bearer {openai_api_key}"
     }
     data = {
         "prompt": prompt,
