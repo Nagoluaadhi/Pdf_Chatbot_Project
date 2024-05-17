@@ -1,5 +1,5 @@
 import streamlit as st
-import pdfplumber
+import fitz  
 import requests
 
 from dotenv import load_dotenv
@@ -9,15 +9,16 @@ import os
 load_dotenv()
 
 # Retrieve the API key from the environment variable
-openai_api_key  = os.environ.get('openai_api_key')
+openai_api_key = os.environ.get('openai_api_key')
 openai_endpoint = "https://api.openai.com/v1/completions"
 
 # Function to extract text from PDF
 def extract_text_from_pdf(uploaded_file):
-    with pdfplumber.open(uploaded_file) as pdf:
-        text = ""
-        for page in pdf.pages:
-            text += page.extract_text()
+    pdf_document = fitz.open(stream=uploaded_file.read(), filetype="pdf")
+    text = ""
+    for page_num in range(len(pdf_document)):
+        page = pdf_document.load_page(page_num)
+        text += page.get_text()
     return text
 
 # Function to chat with OpenAI
